@@ -1,0 +1,11 @@
+[package]
+name = "malloc"
+version = "0.0.1"
+authors = ["Richard <Richard>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+categories = ["wasm", "no-std"]
+repository = "https://github.com/richardanaya/malloc"
+description = "A malloc implementation for a web assembly"
+
+[dependencies]
