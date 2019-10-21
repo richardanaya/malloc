@@ -16,12 +16,14 @@ unsafe impl GlobalAlloc for Allocator {
 }
 
 impl Allocator {
+    #[inline]
     unsafe fn mem_malloc(&self, size: usize) -> *mut u8 {
         let p = START;
         START += size;
         return p as *mut u8;
     }
 
+    #[inline]
     unsafe fn mem_free(&self, _loc: usize) {
         // TODO
     }
