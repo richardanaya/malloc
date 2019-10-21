@@ -1,10 +1,7 @@
 #![no_std]
 use core::alloc::{GlobalAlloc, Layout};
 
-#[derive(Copy, Clone)]
 pub struct Allocator;
-
-static mut START:usize = 0;
 
 unsafe impl GlobalAlloc for Allocator {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
@@ -14,6 +11,10 @@ unsafe impl GlobalAlloc for Allocator {
         self.mem_free(ptr as usize)
     }
 }
+
+// Right now this allocator is just dumb and never frees
+
+static mut START:usize = 0;
 
 impl Allocator {
     #[inline]
@@ -25,6 +26,6 @@ impl Allocator {
 
     #[inline]
     unsafe fn mem_free(&self, _loc: usize) {
-        // TODO
+        // DO NOTHING
     }
 }
