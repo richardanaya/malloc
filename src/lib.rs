@@ -4,9 +4,12 @@ use core::alloc::{GlobalAlloc, Layout};
 pub struct Allocator;
 
 unsafe impl GlobalAlloc for Allocator {
+    #[inline]
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         self.mem_malloc(layout.size())
     }
+
+    #[inline]
     unsafe fn dealloc(&self, ptr: *mut u8, _layout: Layout) {
         self.mem_free(ptr as usize)
     }
@@ -14,7 +17,7 @@ unsafe impl GlobalAlloc for Allocator {
 
 // Right now this allocator is just dumb and never frees
 
-static mut START:usize = 0;
+static mut START: usize = 0;
 
 impl Allocator {
     #[inline]
