@@ -31,33 +31,21 @@ impl Allocator {
     unsafe fn mem_malloc(&self, size: usize, align: usize) -> *mut u8 {
         // find the start of a block
         let mut block_start = START;
-        loop {
+        while block_start < END {
             let header = &mut *(block_start as *mut Header);
-            //if we've reached the end of the line
-            if block_start >= END {
-                // start a block at the end
-                block_start = END;
-                break;
-            }
-
-            //if the current block we are on is unallocated and has room
             if header.flags == FLAG_UNALLOCATED && header.size <= size {
-                // use it
-                break;
+                header.flags = FLAG_ALLOCATED;
+                return (block_start+HEADER_SIZE) as *mut u8;
             }
             block_start += HEADER_SIZE+header.size;
         }
 
-        let mut header = &mut *(block_start as *mut Header);
-        if block_start == END {
-            // create new block
-            header.flags = FLAG_ALLOCATED;
-            header.size = size+8;
-            END += HEADER_SIZE+header.size;
-        } else {
-            // reuse unallocated block
-            header.flags = FLAG_ALLOCATED;
-        }
+        // create a new block at the end if we didn't find
+        // an allocated block that is available and right size
+        let mut header = &mut *(END as *mut Header);
+        header.flags = FLAG_ALLOCATED;
+        header.size = size+8;
+        END += HEADER_SIZE+header.size;
         (block_start+HEADER_SIZE) as *mut u8
     }
 
