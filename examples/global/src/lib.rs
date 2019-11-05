@@ -1,25 +1,22 @@
 #![no_std]
 #![feature(alloc_error_handler)]
 extern crate alloc;
-use alloc::string::String;
-use crate::alloc::string::ToString;
 use js_ffi::*;
-use alloc::format;
 
 struct Test {
-    fn_log:f64
+    fn_log: f64,
 }
 
 impl Default for Test {
     fn default() -> Self {
         Test {
-            fn_log:register("console.log")
+            fn_log: register("console.log"),
         }
     }
 }
 
 impl Test {
-    fn log(&self, s:&str){
+    fn log(&self, s: &str) {
         call_1(UNDEFINED, self.fn_log, TYPE_STRING, to_js_string(s));
     }
 }
@@ -31,7 +28,7 @@ pub fn main() -> () {
 }
 
 #[global_allocator]
-static ALLOCATOR:malloc::Allocator = malloc::Allocator;
+static ALLOCATOR: malloc::Allocator = malloc::Allocator;
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {

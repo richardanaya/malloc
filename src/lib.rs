@@ -6,7 +6,7 @@ pub struct Allocator;
 unsafe impl GlobalAlloc for Allocator {
     #[inline]
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
-        self.mem_malloc(layout.size())
+        self.mem_malloc(layout.size(),layout.align())
     }
 
     #[inline]
@@ -25,7 +25,7 @@ const FLAG_UNALLOCATED:usize = 0;
 
 impl Allocator {
     #[inline]
-    unsafe fn mem_malloc(&self, size: usize) -> *mut u8 {
+    unsafe fn mem_malloc(&self, size: usize, _align: usize) -> *mut u8 {
         // find the start of a block
         let mut block_start = START;
         loop {
