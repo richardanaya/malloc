@@ -1,14 +1,9 @@
 #![no_std]
 #![feature(alloc_error_handler)]
 extern crate alloc;
-use alloc::string::String;
 use crate::alloc::string::ToString;
 use js_ffi::*;
 use alloc::format;
-
-struct Foo {
-    bar:String
-}
 
 #[no_mangle]
 pub fn main() -> () {

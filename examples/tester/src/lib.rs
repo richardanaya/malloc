@@ -5,12 +5,11 @@ use alloc::boxed::Box;
 
 #[no_mangle]
 pub fn main() -> usize {
-    let b = Box::into_raw(Box::new(1)) as usize;
-    let v = Box::into_raw(Box::new(42)) as usize;
-    if v > b {
-        return v;
+    {
+        let b = Box::into_raw(Box::new(1)) as usize;
     }
-    666
+    let v = Box::into_raw(Box::new(42)) as usize;
+    v
 }
 
 #[global_allocator]
