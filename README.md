@@ -2,10 +2,9 @@
 
 A memory allocator for web assembly.
 
-* `#![no_std]`
 * small footprint for smaller wasm
 * simple to learn from
-* works only on nightly
+* only works on nightly
 
 # Usage
 
