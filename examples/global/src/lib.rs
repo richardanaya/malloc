@@ -28,7 +28,7 @@ pub fn main() -> () {
 }
 
 #[global_allocator]
-static ALLOCATOR: malloc::Allocator = malloc::Allocator;
+static ALLOCATOR:malloc::Allocator = malloc::Allocator;
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
