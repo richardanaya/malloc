@@ -5,7 +5,7 @@ A memory allocator for web assembly.
 * `#![no_std]` and stable
 * small footprint for smaller wasm
 * simple to learn from
-
+* works only on nightly
 
 # Usage
 
